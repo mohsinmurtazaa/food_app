@@ -1,5 +1,6 @@
 import ResturantCard from "./ResturantCard";
 import { useEffect, useState } from "react";
+import Shimmer from "./Shimmer";
 const Body = () => {
   const [restList, setRestList] = useState([]);
   const [allRestList, setAllRestList] = useState([]);
@@ -20,7 +21,7 @@ const Body = () => {
   };
 
   return restList.length === 0 ? (
-    <h1>Loading.....</h1>
+    <Shimmer />
   ) : (
     <div className="body">
       <div className="filter-res">
