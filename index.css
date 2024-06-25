@@ -7,7 +7,7 @@
 }
 .logo {
   /* width: 80%; */
-  max-width: 150px;
+  max-width: 120px;
 }
 .nav-items > ul {
   display: flex;
@@ -20,17 +20,12 @@
   padding: 10px;
 }
 
-.search {
-  padding: 20px;
-}
-
 .res-container {
   display: flex;
   flex-wrap: wrap;
 }
 .resturant-card {
-  width: calc(25% - 20px);
-  height: 400px;
+  width: calc(20%);
   margin: 10px;
   box-sizing: border-box;
   background-color: #f0f0f0;
@@ -41,4 +36,35 @@
 }
 .res-logo {
   width: 100%;
+}
+.res-btn {
+  margin: 10px;
+  cursor: pointer;
+}
+.shimmer-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+.shimmer-cards {
+  margin: 20px;
+  height: 400px;
+  width: 200px;
+  background-color: #f0f0f0;
+}
+.res-image {
+  width: 200px;
+}
+.login {
+  padding: 0 20px;
+  cursor: pointer;
+}
+
+.filter-res {
+  display: flex;
+}
+
+.user-profile {
+  border: 1px solid black;
+  padding: 10px;
+  display: flex;
 }
