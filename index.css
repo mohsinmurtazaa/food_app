@@ -25,7 +25,7 @@
   flex-wrap: wrap;
 }
 .resturant-card {
-  width: calc(25% - 20px);
+  width: calc(20%);
   margin: 10px;
   box-sizing: border-box;
   background-color: #f0f0f0;
@@ -60,5 +60,11 @@
 }
 
 .filter-res {
+  display: flex;
+}
+
+.user-profile {
+  border: 1px solid black;
+  padding: 10px;
   display: flex;
 }
