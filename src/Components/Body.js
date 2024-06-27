@@ -39,16 +39,22 @@ const Body = () => {
   ) : (
     <div className="body">
       <div className="filter-res">
-        <div className="search-res">
+        <div>
           <input
             type="text"
-            className="search-box"
+            className="mx-6 border border-solid rounded-md border-black"
             value={searchText}
+            placeholder="Search resturant"
             onChange={(e) => setSearchText(e.target.value)}
           />
-          <button onClick={searchResturant}>Search</button>
           <button
-            className="res-btn"
+            className="px-4 py-1 bg-gray-100 m-2 rounded-lg"
+            onClick={searchResturant}
+          >
+            Search
+          </button>
+          <button
+            className="px-4 py-1 bg-blue-500 m-2 rounded-lg"
             onClick={() => {
               setRestList(
                 allRestList.filter((res) => res.info.avgRating > 4.5)
@@ -58,7 +64,7 @@ const Body = () => {
             Top Rated Resturant
           </button>
           <button
-            className="res-btn"
+            className="px-4 py-1 bg-green-500 m-2 rounded-lg"
             onClick={() => {
               setRestList(allRestList);
               setAllRestList(allRestList);
@@ -68,7 +74,7 @@ const Body = () => {
           </button>
         </div>
       </div>
-      <div className="res-container">
+      <div className="grid grid-cols-4 gap-x-2 ">
         {restList.map((resturant) => (
           <ResturantCard
             key={resturant.info.id}
