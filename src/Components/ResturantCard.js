@@ -28,7 +28,7 @@ export const withPromotedLabel = (ResturantCard) => {
     return (
       <div>
         <label className="absolute bg-black text-white rounded-lg m-2 p-2">
-          Promoted
+          Top Rated
         </label>
         <ResturantCard {...props} />
       </div>
