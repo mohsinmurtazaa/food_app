@@ -1,6 +1,7 @@
-import ResturantCard from "./ResturantCard";
+import ResturantCard, { withPromotedLabel } from "./ResturantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
+import useOnlineStatus from "../utils/useOnlineStatus";
 const Body = () => {
   const [restList, setRestList] = useState([]);
   const [allRestList, setAllRestList] = useState([]);
@@ -27,22 +28,34 @@ const Body = () => {
     setAllRestList(allRestList);
     setRestList(filteredRes);
   };
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus == false)
+    return (
+      <h1>Looks like you are offline.Please check your internet connection.</h1>
+    );
 
+  const PromotedResturant = withPromotedLabel(ResturantCard);
   return restList.length === 0 ? (
     <Shimmer />
   ) : (
     <div className="body">
       <div className="filter-res">
-        <div className="search-res">
+        <div>
           <input
             type="text"
-            className="search-box"
+            className="mx-6 border border-solid rounded-md border-black"
             value={searchText}
+            placeholder="Search resturant"
             onChange={(e) => setSearchText(e.target.value)}
           />
-          <button onClick={searchResturant}>Search</button>
           <button
-            className="res-btn"
+            className="px-4 py-1 bg-gray-100 m-2 rounded-lg"
+            onClick={searchResturant}
+          >
+            Search
+          </button>
+          <button
+            className="px-4 py-1 bg-blue-500 m-2 rounded-lg"
             onClick={() => {
               setRestList(
                 allRestList.filter((res) => res.info.avgRating > 4.5)
@@ -52,7 +65,7 @@ const Body = () => {
             Top Rated Resturant
           </button>
           <button
-            className="res-btn"
+            className="px-4 py-1 bg-green-500 m-2 rounded-lg"
             onClick={() => {
               setRestList(allRestList);
               setAllRestList(allRestList);
@@ -62,13 +75,17 @@ const Body = () => {
           </button>
         </div>
       </div>
-      <div className="res-container">
-        {restList.map((resturant) => (
-          <ResturantCard
-            key={resturant.info.id}
-            resData={resturant}
-          ></ResturantCard>
-        ))}
+      <div className="grid grid-cols-4 gap-x-2">
+        {[
+          ...restList.filter((restaurant) => restaurant.info.avgRating >= 4.6),
+          ...restList.filter((restaurant) => restaurant.info.avgRating < 4.6),
+        ].map((restaurant) =>
+          restaurant.info.avgRating >= 4.6 ? (
+            <PromotedResturant key={restaurant.info.id} resData={restaurant} />
+          ) : (
+            <ResturantCard key={restaurant.info.id} resData={restaurant} />
+          )
+        )}
       </div>
     </div>
   );

@@ -31,31 +31,36 @@ const Menu = () => {
   }
   const { name, cuisines, costForTwoMessage } =
     resInfo?.cards?.[2]?.card?.card?.info;
-  const { itemCards } =
+  const itemCards =
     resInfo?.cards?.[4].groupedCard?.cardGroupMap?.REGULAR?.cards?.[2].card
-      ?.card;
-  console.log(
-    resInfo?.cards?.[4].groupedCard?.cardGroupMap?.REGULAR?.cards?.[1].card
-      ?.card
-  );
+      ?.card?.itemCards ||
+    resInfo?.cards?.[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards?.[2].card
+      ?.card?.categories?.[0]?.itemCards;
+
+  // Function to render item cards
+  const renderItemCards = (itemCards) => {
+    return (
+      <ul>
+        {itemCards.map((item) => (
+          <li key={item.card.info.id}>
+            {item.card.info.name} - Rs{" "}
+            {item.card.info.price / 100 || item.card.info.defaultPrice / 100}
+          </li>
+        ))}
+      </ul>
+    );
+  };
 
   return (
-    <div className="menu">
-      <h1>{name}</h1>
-      <p>
-        {cuisines.join(", ")} - {costForTwoMessage}
-      </p>
-      <h2>Menu</h2>
-      <ul>
-        {itemCards.map((item) => {
-          return (
-            <li key={item.card.info.id}>
-              {item.card.info.name} - Rs{" "}
-              {item.card.info.price / 100 || item.card.info.defaultPrice / 100}
-            </li>
-          );
-        })}
-      </ul>
+    <div className="mx-auto w-1/2 bg-gray-100 p-4 mt-4">
+      <div className="mx-auto w-1/2 ">
+        <h1 className="font-bold text-xl">{name}</h1>
+        <p>
+          {cuisines.join(", ")} - {costForTwoMessage}
+        </p>
+        <h2 className="font-bold">Menu</h2>
+        <ul>{renderItemCards(itemCards)}</ul>
+      </div>
     </div>
   );
 };
