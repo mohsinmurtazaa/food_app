@@ -1,4 +1,4 @@
-import ResturantCard from "./ResturantCard";
+import ResturantCard, { withPromotedLabel } from "./ResturantCard";
 import { useEffect, useState } from "react";
 import Shimmer from "./Shimmer";
 import useOnlineStatus from "../utils/useOnlineStatus";
@@ -34,6 +34,7 @@ const Body = () => {
       <h1>Looks like you are offline.Please check your internet connection.</h1>
     );
 
+  const PromotedResturant = withPromotedLabel(ResturantCard);
   return restList.length === 0 ? (
     <Shimmer />
   ) : (
@@ -74,13 +75,17 @@ const Body = () => {
           </button>
         </div>
       </div>
-      <div className="grid grid-cols-4 gap-x-2 ">
-        {restList.map((resturant) => (
-          <ResturantCard
-            key={resturant.info.id}
-            resData={resturant}
-          ></ResturantCard>
-        ))}
+      <div className="grid grid-cols-4 gap-x-2">
+        {[
+          ...restList.filter((restaurant) => restaurant.info.avgRating >= 4.6),
+          ...restList.filter((restaurant) => restaurant.info.avgRating < 4.6),
+        ].map((restaurant) =>
+          restaurant.info.avgRating >= 4.6 ? (
+            <PromotedResturant key={restaurant.info.id} resData={restaurant} />
+          ) : (
+            <ResturantCard key={restaurant.info.id} resData={restaurant} />
+          )
+        )}
       </div>
     </div>
   );
