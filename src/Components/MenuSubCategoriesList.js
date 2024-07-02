@@ -1,5 +1,12 @@
+import { useDispatch } from "react-redux";
+import { addItem } from "../utils/cartSlice";
 import { CDN_URL } from "../utils/constants";
 const MenuSubCategoriesList = ({ items }) => {
+  const dispatch = useDispatch();
+  const handleAddItem = (item) => {
+    //Dispatch an action
+    dispatch(addItem(item));
+  };
   return (
     <div>
       {items.map((item) => (
@@ -24,7 +31,10 @@ const MenuSubCategoriesList = ({ items }) => {
             ) : (
               ""
             )}
-            <button className="absolute bottom-4 right-4 p-2 rounded-lg bg-black text-white shadow-lg">
+            <button
+              className="absolute bottom-4 right-4 p-2 rounded-lg bg-black text-white shadow-lg"
+              onClick={() => handleAddItem(item)}
+            >
               Add +
             </button>
           </div>
